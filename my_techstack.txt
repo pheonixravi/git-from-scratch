@@ -5,3 +5,5 @@ GenAI
 LangChain
 Streamlit
 
+
+Now i am upgrading to ML and MLOps
