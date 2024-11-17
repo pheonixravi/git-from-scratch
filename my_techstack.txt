@@ -2,3 +2,6 @@ Java,Python
 Spring,SpringBoot
 ReactJS
 GenAI
+LangChain
+Streamlit
+
