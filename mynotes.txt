@@ -1,0 +1,615 @@
+C:\Users\ravik>git --version
+git version 2.33.0.windows.2
+
+#Install git for windows - https://git-scm.com/downloads
+
+
+#By default it creates a branch - master.
+
+
+#you can also use Powershell,after installing git.
+
+
+PS C:\Users\ravik> git --version
+git version 2.33.0.windows.2
+
+#git configuration -
+The git config command is a convenience function that is used to set Git configuration values on a global or local project level.
+
+PS C:\Users\ravik> git config --global --list
+
+
+#install vscode 
+
+
+#what is staging area?
+======================
+To keep a track of modifications or changes in the file we have to bring that changes to our staging area which we bring by using Staging. 
+For example, we have written 4 lines of text in a file and modified 4 lines of text in that file that is known as a hunk which you can consider as a piece of change.
+
+Following command we may use to add all the modified data while working on git:
+>git add .
+
+
+>Push the updates to the staging area - git push
+
+Commit history:
+===============
+Every time we update and commit, git creates new version of it.
+
+
+#git status 
+===========
+PS D:\git_from_scratch> git status
+fatal: not a git repository (or any of the parent directories): .git
+
+
+#create local repository
+=========================
+PS D:\git_from_scratch>>git init
+Initialized empty Git repository in D:/git_from_scratch/.git/
+
+PS D:\git_from_scratch> git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+
+
+#let's change the master branch to main branch
+PS D:\git_from_scratch> git init -b main
+Initialized empty Git repository in D:/git_from_scratch/.git/
+
+#Create myblog.txt file and add some content to it.
+PS D:\git_from_scratch> git status
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        myblog.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+PS D:\git_from_scratch> git add myblog.txt
+PS D:\git_from_scratch> git status
+On branch main
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   myblog.txt
+
+PS D:\git_from_scratch> git commit -m "my first commit"
+[main (root-commit) 8731378] my first commit   
+(8731378 is checksum - a hash value that identifies a change in a Git repository)
+ 1 file changed, 1 insertion(+)
+ create mode 100644 myblog.txt
+(in real time we mention issue tracking/bug fixed as a commit message)
+
+PS D:\git_from_scratch> git status
+On branch main
+nothing to commit, working tree clean
+
+PS D:\git_from_scratch> git log
+commit 8731378b8b25d0198fb4ea35c24cbbc7b95e6b4b (HEAD -> main)
+Author: scott <scott@gmail.com>
+Date:   Fri Nov 15 19:55:42 2024 +0530
+
+    my first commit
+
+#Now make changes to myblog.txt and now check.
+PS D:\git_from_scratch> git status
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   myblog.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+PS D:\git_from_scratch> git add myblog.txt (move to the staging area)
+
+PS D:\git_from_scratch> git commit -m "my second commit"
+[main 9206860] my second commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+PS D:\git_from_scratch> git log
+commit 9206860ac0de7665c0dcac7fd7bacc0d4bb47ca2 (HEAD -> main)
+Author: scott <scott@gmail.com>
+Date:   Fri Nov 15 20:07:22 2024 +0530
+
+    my second commit
+
+commit 8731378b8b25d0198fb4ea35c24cbbc7b95e6b4b
+Author: scott <scott@gmail.com>
+Date:   Fri Nov 15 19:55:42 2024 +0530
+
+
+#Skipping staging with -a option
+================================
+PS D:\git_from_scratch> git commit -a -m "without staging"
+[main 41634b1] without staging
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+PS D:\git_from_scratch> git log
+commit 41634b1d405a4a5d04a5e169eb9371b98e63274c (HEAD -> main)
+Author: scott <scott@gmail.com>
+Date:   Fri Nov 15 22:25:56 2024 +0530
+
+    without staging
+
+commit 6b35b767ca51c5529cc9662b104f7aa5b28326b5
+Author: scott <scott@gmail.com>
+Date:   Fri Nov 15 22:19:26 2024 +0530
+
+    added few more lorem ipsum texts
+
+commit 9206860ac0de7665c0dcac7fd7bacc0d4bb47ca2
+Author: scott <scott@gmail.com>
+Date:   Fri Nov 15 20:07:22 2024 +0530
+
+git diff
+========
+git diff is a command-line tool in Git that shows the differences between various states of a repository. 
+It helps developers see what changes have been made, whether they are between working directory and the staging area, 
+between the staging area and the last commit, or between any two commits.
+
+
+PS D:\git_from_scratch> git diff
+diff --git a/myblog.txt b/myblog.txt
+index 9db3450..d29d0dc 100644
+--- a/myblog.txt
++++ b/myblog.txt
+@@ -1,4 +1,5 @@
+ Happy Learning..Happy Coding!!
+ Lorem ipsum is a dummy or placeholder text commonly used in graphic design,
+ publishing, and web development to fill empty spaces in a layout that do not
+-yet have content.
+\ No newline at end of file
++yet have content.
++Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+\ No newline at end of file
+
+
+>Let's add updated file to the staging and check the command - git diff
+PS D:\git_from_scratch> git add .
+PS D:\git_from_scratch> git diff
+
+
+So now if we want to see the changes between the previous commit and currently staged files we can use the following command: 
+>git diff –staged
+
+PS D:\git_from_scratch> git diff --staged
+diff --git a/myblog.txt b/myblog.txt
+index 9db3450..d29d0dc 100644
+--- a/myblog.txt
++++ b/myblog.txt
+@@ -1,4 +1,5 @@
+ Happy Learning..Happy Coding!!
+ Lorem ipsum is a dummy or placeholder text commonly used in graphic design,
+ publishing, and web development to fill empty spaces in a layout that do not
+-yet have content.
+\ No newline at end of file
++yet have content.
++Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+\ No newline at end of file
+
+#Now,use git log to check the status and previous commits
+
+PS D:\git_from_scratch> git log
+
+
+Readme.md(markdown)
+====================
+This file serves as the first point of contact for users and developers who want to understand the purpose, setup, and usage of a project.
+
+
+Contents of Readme.md file
+===========================
+The following are the general key components of a Readme file:
+
+Include Your Project’s Title: This is the name of the project. It describes the whole project in few words and helps people understand the primary goal and aim.
+
+Write a Description: Your description is an essential part of your project. A well-maintained description allows you to show off your work to other developers as well as potential employers.
+
+How to Use Your Project: Provide instructions and examples so that users or contributors can use the project. This will make it easy for them so that if they encounter a problem, they will always have a place of reference.
+
+Include Credits: If you have worked on the project as a team, list your team members. You should also include their GitHub profiles.
+
+#Now add few details into Readme.md file
+=========================================
+PS D:\git_from_scratch> git status
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   myblog.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        Readme.md
+        data.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+PS D:\git_from_scratch> git add .
+PS D:\git_from_scratch> git status
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   Readme.md
+        new file:   data.txt
+        modified:   myblog.txt
+
+
+#Now to remove the file from git and don't want to publish to the public GitHub repo,use git -rm --cache <filename>
+PS D:\git_from_scratch> git rm --cached data.txt
+rm 'data.txt'
+PS D:\git_from_scratch> git status
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    data.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        data.txt
+
+PS D:\git_from_scratch> git status
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    data.txt
+
+
+
+
+PS D:\git_from_scratch> git commit -m "removed the data.txt"
+
+
+#####GitHub Repository####
+===========================
+
+>Signup with your email
+
+>you can search for any repositories like Linux etc.
+	- Observe the  contributors
+	- Languages used
+
+>git clone https://github.com/torvalds/linux.git
+
+
+#Let's create another new working directory D:\git-course
+PS D:\git-course> echo "#git-course demo" >> README.md
+
+#Let's create a local repository
+PS D:\git-course> git init
+Initialized empty Git repository in D:/git-course/.git/
+
+PS D:\git-course> git add README.md
+PS D:\git-course> git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   README.md
+
+PS D:\git-course> git commit -m "first commit"
+[master (root-commit) 6d6f251] first commit
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 README.md
+
+#Let's create a branch - main
+PS D:\git-course> git branch -M main
+
+#let's connect to the remote repository
+1.By using ssh
+==============
+PS D:\git-course> ssh-keygen -o
+
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (C:\Users\ravik/.ssh/id_ed25519):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in C:\Users\ravik/.ssh/id_ed25519
+Your public key has been saved in C:\Users\ravik/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:aiUpjsI/YYj29f6uXRruMP3EZU38d0rqg4rZWCgj8xc ravik@LAPTOP-052SRALO
+The key's randomart image is:
++--[ED25519 256]--+
+|                 |
+|              .  |
+|               o |
+|       .      o .|
+|. . . o S    o..+|
+|oo = oE=. . oo .o|
+|o.* * =+.o =. .  |
+| ..* +.B= B..    |
+|   .o.=oBO ...   |
++----[SHA256]-----+
+
+
+2.By using HTTPS link
+PS D:\git-course> git remote add origin https://github.com/pheonixravi/git-from-scratch.git
+
+#Now push to the remote repository by using 
+PS D:\git-course> git push -u origin main  (-u ->upstream)
+
+PS D:\git-course> git push -u origin main
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 238 bytes | 238.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/pheonixravi/git-from-scratch.git
+ * [new branch]      main -> main
+Branch 'main' set up to track remote branch 'main' from 'origin'.
+
+#Now,open this working directory in VScode.
+PS D:\git-course> code .
+
+
+#Open the new terminal
+D:\git-course>git status
+
+D:\git-course>git add my_techstack.txt
+
+D:\git-course>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   my_techstack.txt
+
+#let's push to the GitHub repository
+D:\git-course>git push origin main
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 321 bytes | 321.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/pheonixravi/git-from-scratch.git
+   6d6f251..c17661e  main -> main
+
+
+#To find remote origin
+========================
+D:\git-course>git remote -v
+origin  https://github.com/pheonixravi/git-from-scratch.git (fetch)
+origin  https://github.com/pheonixravi/git-from-scratch.git (push)
+
+#Tagging:
+=========
+Tags are ref's that point to specific points in Git history. 
+Tagging is generally used to capture a point in history that is used for a marked version release (i.e. v1. 0.1). 
+
+>How to check the tags for the current project?
+PS D:\git_from_scratch> git tag (since no tag has been created,won't show any tag details)
+
+2-types of tagging
+==================
+1.annotated tagging - Annotated tags store extra meta data such as: the tagger name, email, and date. This is important data for a public release. 
+2.Ligthweight tagging - Lightweight tags are essentially 'bookmarks' to a commit, they are just a name and a pointer to a commit, useful for creating quick links to relevant commits.
+
+#Annotated tagging
+===================
+D:\git-course>git tag -a v1.0 -m "first release"
+
+D:\git-course>git tag
+v1.0
+#to show the description of the tag
+=====================================
+
+D:\git-course>git show v1.0
+tag v1.0
+Tagger: scott <scott@gmail.com>
+Date:   Sun Nov 17 14:58:41 2024 +0530
+
+first release
+
+commit c17661ed4032aae6a82b2268bfa1df29560b94fe (HEAD -> main, tag: v1.0, origin/main)
+Author: scott <scott@gmail.com>
+Date:   Fri Nov 15 23:34:49 2024 +0530
+
+    tech stack details added
+
+diff --git a/my_techstack.txt b/my_techstack.txt
+new file mode 100644
+index 0000000..cca7b78
+
+
+Now,these tagging/version should be available on the remote repo.
+Let's add few content to our myblog.txt
+
+D:\git-course>git add my_techstack.txt
+
+D:\git-course>git commit -m "added few more skillsets details"
+[main 6b1214c] added few more skillsets details
+ 1 file changed, 3 insertions(+)
+
+D:\git-course>git push origin main
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 348 bytes | 348.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/pheonixravi/git-from-scratch.git
+   c17661e..6b1214c  main -> main
+
+
+
+D:\git-course>git tag v1.1 -m "12th November 2024"
+
+D:\git-course>git tag
+v1.0
+v1.1
+
+#we have to push the tag separately to the remote repo.
+D:\git-course>git push origin  v1.0            
+Enumerating objects: 1, done.
+Counting objects: 100% (1/1), done.
+Writing objects: 100% (1/1), 155 bytes | 155.00 KiB/s, done.
+Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/pheonixravi/git-from-scratch.git
+ * [new tag]         v1.0 -> v1.0
+
+
+Now,you can observe the tag version in the remote repository and download the source code.
+
+Let's push the tag v1.1 also.
+D:\git-course>git push origin  v1.1  
+Enumerating objects: 1, done.
+Counting objects: 100% (1/1), done.
+Writing objects: 100% (1/1), 158 bytes | 158.00 KiB/s, done.
+Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/pheonixravi/git-from-scratch.git
+ * [new tag]         v1.1 -> v1.1
+
+
+Again, observe the remote repository for the tags.
+
+
+What git cloning?
+================
+Let's clone vscode project
+D:\>git clone https://github.com/microsoft/vscode.git
+
+After completing the cloning,open this vscode folder in VScode
+
+D:\vscode>git log 
+D:\vscode>git tag
+
+#to know the tag details of particular version
+D:\vscode>git show 1.95.3
+commit f1a4fb101478ce6ec82fe9627c43efbf9e98c813 (tag: 1.95.3, origin/release/1.95)
+Author: Sandeep Somavarapu <sasomava@microsoft.com>
+Date:   Wed Nov 13 15:45:08 2024 +0100
+
+    recovery fix for #232699 (#233764)
+
+    recovery fix for #232699 (#233763)
+
+diff --git a/src/vs/platform/log/node/spdlogLog.ts b/src/vs/platform/log/node/spdlogLog.ts
+index ef99c32831a..b70bbdbd07f 100644
+--- a/src/vs/platform/log/node/spdlogLog.ts
++++ b/src/vs/platform/log/node/spdlogLog.ts
+@@ -110,6 +110,10 @@ export class SpdLogLogger extends AbstractMessageLogger implements ILogger {
+        }
+
+
+#Creating branching
+===================
+In Git, a branch is a new/separate version of the main repository.
+
+D:\git-course>git checkout -b feature1 (Note: checkout is older way of creating branch or we can also use switch)
+Switched to a new branch 'feature1'
+
+D:\git-course>git branch
+* feature1
+  main
+
+D:\git-course>git add .  
+
+D:\git-course>git commit -m "added few more features into my techstack"
+[feature1 8f987da] added few more features into my techstack
+ 1 file changed, 2 insertions(+)
+
+D:\git-course>git log
+commit 8f987da71d765425f4337bd3a70fd449b672c766 (HEAD -> feature1)
+Author: scott <scott@gmail.com>
+Date:   Sun Nov 17 16:03:26 2024 +0530
+
+    added few more features into my techstack
+
+commit 6b1214cea548bfe22c8a22dc1a667017775ee089 (tag: v1.1, origin/main, main)
+Author: scott <scott@gmail.com>
+Date:   Sun Nov 17 15:00:37 2024 +0530
+
+    added few more skillsets details
+
+commit c17661ed4032aae6a82b2268bfa1df29560b94fe (tag: v1.0)
+Author: scott <scott@gmail.com>
+Date:   Fri Nov 15 23:34:49 2024 +0530
+:
+
+
+#you can switch/checkout to any branch
+=====================================
+D:\git-course>git switch main
+
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+
+D:\git-course>git switch feature1
+Switched to branch 'feature1'
+
+#creating few more branches using switch
+D:\git-course>git switch -c feature2
+Switched to a new branch 'feature2'
+
+
+#To show local branches
+
+D:\git-course>git branch     
+  feature1
+* feature2
+  main
+
+#To show local and remote branches use --all
+D:\git-course>git branch --all
+  feature1
+* feature2
+  main
+  remotes/origin/main
+
+#To switch to previous branch
+D:\git-course>git switch -
+Switched to branch 'feature1'
+
+#To delete a particular branch
+D:\git-course>git branch -d feature2
+Deleted branch feature2 (was 8f987da).
+
+#let's check how many branches available
+D:\git-course>git branch
+* feature1
+  main
+
+
+#Now,let's push the updated file to the new branch under remote repository
+
+D:\git-course>git push origin feature1
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 389 bytes | 389.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+remote: 
+remote: Create a pull request for 'feature1' on GitHub by visiting:
+remote:      https://github.com/pheonixravi/git-from-scratch/pull/new/feature1
+remote: 
+To https://github.com/pheonixravi/git-from-scratch.git
+ * [new branch]      feature1 -> feature1
+
+
+
+
+
+
+
+
+
+
+
+
+
