@@ -9,3 +9,5 @@ Streamlit
 Now i am upgrading to ML and MLOps
 
 Now learning AWS
+
+Planning to work on DevOps tools also..
